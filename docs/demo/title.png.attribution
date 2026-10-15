@@ -1,0 +1,8 @@
+asset:        title.png
+title:        MCP demo frame at 1.7 s (title on a graded red matte)
+author:       FilmCraft contributors
+source:       original work
+license:      MIT OR Apache-2.0
+license-file: LICENSE-MIT
+added:        2026-10-15 by filmcraft-mcp demo
+notes:        Program frame rendered by filmcraft-mcp capture_frame. Picture is a FilmCraft color matte with Lumetri basic correction. Title text "FilmCraft MCP" is set in the bundled Noto Serif font (OFL-1.1). No external media.

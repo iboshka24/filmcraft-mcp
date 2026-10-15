@@ -1,0 +1,32 @@
+[package]
+name = "filmcraft-mcp"
+description = "Named-tool MCP server (stdio and loopback HTTP) over the FilmCraft engine"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+rust-version.workspace = true
+
+[lints]
+workspace = true
+
+[[bin]]
+name = "filmcraft-mcp"
+path = "src/main.rs"
+
+[lib]
+name = "filmcraft_mcp"
+path = "src/lib.rs"
+
+[dependencies]
+filmcraft-engine = { workspace = true }
+filmcraft-automation = { workspace = true }
+filmcraft-codecs = { workspace = true }
+filmcraft-media = { workspace = true }
+filmcraft-project = { workspace = true }
+filmcraft-time = { workspace = true }
+serde_json = { workspace = true }
+tokio = { version = "1", features = ["rt-multi-thread", "macros", "io-util", "net", "sync", "time", "io-std"] }
+base64 = "0.22"
+
+[dev-dependencies]
+tokio = { version = "1", features = ["rt-multi-thread", "macros", "io-util", "net", "sync", "time"] }

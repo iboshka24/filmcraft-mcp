@@ -1,0 +1,8 @@
+asset:        early.png
+title:        MCP demo frame at 0.35 s (color bars)
+author:       FilmCraft contributors
+source:       original work
+license:      MIT OR Apache-2.0
+license-file: LICENSE-MIT
+added:        2026-10-15 by filmcraft-mcp demo
+notes:        Program frame rendered by filmcraft-mcp capture_frame from the engine's bars-and-tone generator. No external media. Built by scripts/demo_edit.py.

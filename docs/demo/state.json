@@ -1,0 +1,1482 @@
+{
+  "project": {
+    "activeSequence": 5,
+    "dirty": true,
+    "name": "Untitled",
+    "path": null,
+    "revision": 33,
+    "root": {
+      "children": [
+        {
+          "duration": 1143072000000,
+          "item": 5,
+          "label": "Forest",
+          "name": "MCP Demo",
+          "type": "Sequence"
+        },
+        {
+          "duration": 762048000000,
+          "item": 6,
+          "label": "Lavender",
+          "name": "Red",
+          "type": "Synthetic"
+        },
+        {
+          "duration": 762048000000,
+          "item": 7,
+          "label": "Lavender",
+          "name": "Amber",
+          "type": "Synthetic"
+        },
+        {
+          "duration": 762048000000,
+          "item": 8,
+          "label": "Lavender",
+          "name": "Blue",
+          "type": "Synthetic"
+        },
+        {
+          "duration": 1270080000000,
+          "item": 9,
+          "label": "Lavender",
+          "name": "Bars",
+          "type": "Synthetic"
+        },
+        {
+          "duration": 914457600000000,
+          "item": 17,
+          "label": "Rose",
+          "name": "Graphic",
+          "type": "Graphic"
+        }
+      ],
+      "id": 0,
+      "name": "Untitled"
+    },
+    "sourceItem": null
+  },
+  "sequence": {
+    "audio": [
+      {
+        "enabled": true,
+        "id": 3,
+        "items": [
+          {
+            "clip": 14,
+            "duration": 1143072000000,
+            "durationFrames": 108,
+            "effects": [
+              {
+                "effect": "volume",
+                "enabled": true,
+                "masks": 0,
+                "params": {
+                  "bypass": {
+                    "keyframes": 0,
+                    "value": "Bool(false)"
+                  },
+                  "level": {
+                    "keyframes": 0,
+                    "value": "Float(0.0)"
+                  }
+                }
+              },
+              {
+                "effect": "channel_volume",
+                "enabled": true,
+                "masks": 0,
+                "params": {
+                  "bypass": {
+                    "keyframes": 0,
+                    "value": "Bool(false)"
+                  },
+                  "left": {
+                    "keyframes": 0,
+                    "value": "Float(0.0)"
+                  },
+                  "right": {
+                    "keyframes": 0,
+                    "value": "Float(0.0)"
+                  }
+                }
+              },
+              {
+                "effect": "panner",
+                "enabled": true,
+                "masks": 0,
+                "params": {
+                  "balance": {
+                    "keyframes": 0,
+                    "value": "Float(0.0)"
+                  }
+                }
+              }
+            ],
+            "enabled": true,
+            "end": 1143072000000,
+            "endFrame": 108,
+            "gainDb": -8.0,
+            "item": 9,
+            "label": "Lavender",
+            "link": null,
+            "name": "Bars",
+            "reverse": false,
+            "sourceIn": 42336000000,
+            "sourceOut": 1185408000000,
+            "speed": 1.0,
+            "start": 0,
+            "startFrame": 0
+          }
+        ],
+        "locked": false,
+        "muted": false,
+        "name": "Audio 1",
+        "solo": false,
+        "syncLock": false,
+        "transitions": [
+          {
+            "align": "end",
+            "duration": 127008000000,
+            "effect": "exponential_fade",
+            "from": 14,
+            "id": 23,
+            "params": {},
+            "reverse": false,
+            "start": 1016064000000,
+            "to": null
+          }
+        ]
+      },
+      {
+        "enabled": true,
+        "id": 4,
+        "items": [],
+        "locked": false,
+        "muted": false,
+        "name": "Audio 2",
+        "solo": false,
+        "syncLock": true,
+        "transitions": []
+      }
+    ],
+    "duration": 1143072000000,
+    "durationFrames": 108,
+    "gapSelection": null,
+    "id": 5,
+    "in": 0,
+    "markers": [
+      {
+        "color": "Rose",
+        "comment": "graded red under the title",
+        "duration": 0,
+        "id": 22,
+        "kind": "Comment",
+        "name": "Title",
+        "start": 292118400000
+      }
+    ],
+    "name": "MCP Demo",
+    "out": 1117670400000,
+    "playhead": 423360000000,
+    "selection": [
+      20
+    ],
+    "settings": {
+      "audio_master": "Stereo",
+      "color": {
+        "auto_tone_map": true,
+        "wide_gamut": false,
+        "working": "Rec709"
+      },
+      "drop_frame": false,
+      "frame_rate": {
+        "den": 1,
+        "num": 24
+      },
+      "height": 360,
+      "max_bit_depth": false,
+      "max_render_quality": false,
+      "par": [
+        1,
+        1
+      ],
+      "preset": "640x360 24",
+      "preview_codec": "ProRes 422",
+      "sample_rate": 48000,
+      "width": 640,
+      "working_space": "Rec. 709"
+    },
+    "split": {
+      "audioIn": null,
+      "audioOut": null,
+      "videoIn": null,
+      "videoOut": null
+    },
+    "transitionSelection": [],
+    "video": [
+      {
+        "enabled": true,
+        "id": 1,
+        "items": [
+          {
+            "clip": 10,
+            "duration": 127008000000,
+            "durationFrames": 12,
+            "effects": [
+              {
+                "effect": "motion",
+                "enabled": true,
+                "masks": 0,
+                "params": {
+                  "anchor": {
+                    "keyframes": 0,
+                    "value": "Vec2(Vec2 { x: 320.0, y: 180.0 })"
+                  },
+                  "anti_flicker": {
+                    "keyframes": 0,
+                    "value": "Float(0.0)"
+                  },
+                  "position": {
+                    "keyframes": 0,
+                    "value": "Vec2(Vec2 { x: 320.0, y: 180.0 })"
+                  },
+                  "rotation": {
+                    "keyframes": 0,
+                    "value": "Float(0.0)"
+                  },
+                  "scale": {
+                    "keyframes": 0,
+                    "value": "Float(100.0)"
+                  },
+                  "scale_width": {
+                    "keyframes": 0,
+                    "value": "Float(100.0)"
+                  },
+                  "uniform_scale": {
+                    "keyframes": 0,
+                    "value": "Bool(true)"
+                  }
+                }
+              },
+              {
+                "effect": "opacity",
+                "enabled": true,
+                "masks": 0,
+                "params": {
+                  "blend": {
+                    "keyframes": 0,
+                    "value": "Choice(0)"
+                  },
+                  "opacity": {
+                    "keyframes": 0,
+                    "value": "Float(100.0)"
+                  }
+                }
+              },
+              {
+                "effect": "time_remap",
+                "enabled": true,
+                "masks": 0,
+                "params": {
+                  "speed": {
+                    "keyframes": 0,
+                    "value": "Float(100.0)"
+                  }
+                }
+              }
+            ],
+            "enabled": true,
+            "end": 127008000000,
+            "endFrame": 12,
+            "gainDb": 0.0,
+            "item": 9,
+            "label": "Lavender",
+            "link": null,
+            "name": "Bars",
+            "reverse": false,
+            "sourceIn": 0,
+            "sourceOut": 127008000000,
+            "speed": 1.0,
+            "start": 0,
+            "startFrame": 0
+          },
+          {
+            "clip": 15,
+            "duration": 127008000000,
+            "durationFrames": 12,
+            "effects": [
+              {
+                "effect": "motion",
+                "enabled": true,
+                "masks": 0,
+                "params": {
+                  "anchor": {
+                    "keyframes": 0,
+                    "value": "Vec2(Vec2 { x: 320.0, y: 180.0 })"
+                  },
+                  "anti_flicker": {
+                    "keyframes": 0,
+                    "value": "Float(0.0)"
+                  },
+                  "position": {
+                    "keyframes": 0,
+                    "value": "Vec2(Vec2 { x: 320.0, y: 180.0 })"
+                  },
+                  "rotation": {
+                    "keyframes": 0,
+                    "value": "Float(0.0)"
+                  },
+                  "scale": {
+                    "keyframes": 0,
+                    "value": "Float(100.0)"
+                  },
+                  "scale_width": {
+                    "keyframes": 0,
+                    "value": "Float(100.0)"
+                  },
+                  "uniform_scale": {
+                    "keyframes": 0,
+                    "value": "Bool(true)"
+                  }
+                }
+              },
+              {
+                "effect": "opacity",
+                "enabled": true,
+                "masks": 0,
+                "params": {
+                  "blend": {
+                    "keyframes": 0,
+                    "value": "Choice(0)"
+                  },
+                  "opacity": {
+                    "keyframes": 0,
+                    "value": "Float(100.0)"
+                  }
+                }
+              },
+              {
+                "effect": "time_remap",
+                "enabled": true,
+                "masks": 0,
+                "params": {
+                  "speed": {
+                    "keyframes": 0,
+                    "value": "Float(100.0)"
+                  }
+                }
+              }
+            ],
+            "enabled": true,
+            "end": 254016000000,
+            "endFrame": 24,
+            "gainDb": 0.0,
+            "item": 9,
+            "label": "Lavender",
+            "link": null,
+            "name": "Bars",
+            "reverse": false,
+            "sourceIn": 127008000000,
+            "sourceOut": 254016000000,
+            "speed": 1.0,
+            "start": 127008000000,
+            "startFrame": 12
+          },
+          {
+            "clip": 11,
+            "duration": 370440000000,
+            "durationFrames": 35,
+            "effects": [
+              {
+                "effect": "lumetri",
+                "enabled": true,
+                "masks": 0,
+                "params": {
+                  "basic_on": {
+                    "keyframes": 0,
+                    "value": "Bool(true)"
+                  },
+                  "blacks": {
+                    "keyframes": 0,
+                    "value": "Float(0.0)"
+                  },
+                  "contrast": {
+                    "keyframes": 0,
+                    "value": "Float(16.0)"
+                  },
+                  "creative_on": {
+                    "keyframes": 0,
+                    "value": "Bool(true)"
+                  },
+                  "creative_sat": {
+                    "keyframes": 0,
+                    "value": "Float(100.0)"
+                  },
+                  "curve_blue": {
+                    "keyframes": 0,
+                    "value": "Curve([[0.0, 0.0], [1.0, 1.0]])"
+                  },
+                  "curve_green": {
+                    "keyframes": 0,
+                    "value": "Curve([[0.0, 0.0], [1.0, 1.0]])"
+                  },
+                  "curve_luma": {
+                    "keyframes": 0,
+                    "value": "Curve([[0.0, 0.0], [1.0, 1.0]])"
+                  },
+                  "curve_red": {
+                    "keyframes": 0,
+                    "value": "Curve([[0.0, 0.0], [1.0, 1.0]])"
+                  },
+                  "curves_hdr_range": {
+                    "keyframes": 0,
+                    "value": "Float(1000.0)"
+                  },
+                  "curves_on": {
+                    "keyframes": 0,
+                    "value": "Bool(true)"
+                  },
+                  "exposure": {
+                    "keyframes": 0,
+                    "value": "Float(0.25)"
+                  },
+                  "faded_film": {
+                    "keyframes": 0,
+                    "value": "Float(0.0)"
+                  },
+                  "hdr_specular": {
+                    "keyframes": 0,
+                    "value": "Float(0.0)"
+                  },
+                  "hdr_white": {
+                    "keyframes": 0,
+                    "value": "Float(1000.0)"
+                  },
+                  "highlight_tint": {
+                    "keyframes": 0,
+                    "value": "Color([0.5, 0.5, 0.5, 1.0])"
+                  },
+                  "highlights": {
+                    "keyframes": 0,
+                    "value": "Float(0.0)"
+                  },
+                  "hsl_blur": {
+                    "keyframes": 0,
+                    "value": "Float(0.0)"
+                  },
+                  "hsl_denoise": {
+                    "keyframes": 0,
+                    "value": "Float(0.0)"
+                  },
+                  "hsl_hue": {
+                    "keyframes": 0,
+                    "value": "Float(0.0)"
+                  },
+                  "hsl_hue_range": {
+                    "keyframes": 0,
+                    "value": "Float(30.0)"
+                  },
+                  "hsl_hue_shift": {
+                    "keyframes": 0,
+                    "value": "Float(0.0)"
+                  },
+                  "hsl_luma_max": {
+                    "keyframes": 0,
+                    "value": "Float(95.0)"
+                  },
+                  "hsl_luma_min": {
+                    "keyframes": 0,
+                    "value": "Float(5.0)"
+                  },
+                  "hsl_on": {
+                    "keyframes": 0,
+                    "value": "Bool(false)"
+                  },
+                  "hsl_sat": {
+                    "keyframes": 0,
+                    "value": "Float(100.0)"
+                  },
+                  "hsl_sat_min": {
+                    "keyframes": 0,
+                    "value": "Float(10.0)"
+                  },
+                  "hsl_show_mask": {
+                    "keyframes": 0,
+                    "value": "Choice(0)"
+                  },
+                  "hsl_soft": {
+                    "keyframes": 0,
+                    "value": "Float(20.0)"
+                  },
+                  "hsl_temp": {
+                    "keyframes": 0,
+                    "value": "Float(0.0)"
+                  },
+                  "hsl_tint": {
+                    "keyframes": 0,
+                    "value": "Float(0.0)"
+                  },
+                  "hue_vs_hue": {
+                    "keyframes": 0,
+                    "value": "Curve([])"
+                  },
+                  "hue_vs_luma": {
+                    "keyframes": 0,
+                    "value": "Curve([])"
+                  },
+                  "hue_vs_sat": {
+                    "keyframes": 0,
+                    "value": "Curve([])"
+                  },
+                  "input_lut": {
+                    "keyframes": 0,
+                    "value": "Text(\"\")"
+                  },
+                  "look": {
+                    "keyframes": 0,
+                    "value": "Choice(0)"
+                  },
+                  "look_intensity": {
+                    "keyframes": 0,
+                    "value": "Float(100.0)"
+                  },
+                  "look_lut": {
+                    "keyframes": 0,
+                    "value": "Text(\"\")"
+                  },
+                  "luma_vs_sat": {
+                    "keyframes": 0,
+                    "value": "Curve([])"
+                  },
+                  "sat_vs_sat": {
+                    "keyframes": 0,
+                    "value": "Curve([])"
+                  },
+                  "saturation": {
+                    "keyframes": 0,
+                    "value": "Float(150.0)"
+                  },
+                  "shadow_tint": {
+                    "keyframes": 0,
+                    "value": "Color([0.5, 0.5, 0.5, 1.0])"
+                  },
+                  "shadows": {
+                    "keyframes": 0,
+                    "value": "Float(0.0)"
+                  },
+                  "sharpen": {
+                    "keyframes": 0,
+                    "value": "Float(0.0)"
+                  },
+                  "temperature": {
+                    "keyframes": 0,
+                    "value": "Float(8.0)"
+                  },
+                  "tint": {
+                    "keyframes": 0,
+                    "value": "Float(0.0)"
+                  },
+                  "vibrance": {
+                    "keyframes": 0,
+                    "value": "Float(0.0)"
+                  },
+                  "vignette_amount": {
+                    "keyframes": 0,
+                    "value": "Float(0.0)"
+                  },
+                  "vignette_feather": {
+                    "keyframes": 0,
+                    "value": "Float(50.0)"
+                  },
+                  "vignette_midpoint": {
+                    "keyframes": 0,
+                    "value": "Float(50.0)"
+                  },
+                  "vignette_on": {
+                    "keyframes": 0,
+                    "value": "Bool(true)"
+                  },
+                  "vignette_roundness": {
+                    "keyframes": 0,
+                    "value": "Float(0.0)"
+                  },
+                  "wheel_highlights": {
+                    "keyframes": 0,
+                    "value": "Vec2(Vec2 { x: 0.0, y: 0.0 })"
+                  },
+                  "wheel_highlights_l": {
+                    "keyframes": 0,
+                    "value": "Float(0.0)"
+                  },
+                  "wheel_midtones": {
+                    "keyframes": 0,
+                    "value": "Vec2(Vec2 { x: 0.0, y: 0.0 })"
+                  },
+                  "wheel_midtones_l": {
+                    "keyframes": 0,
+                    "value": "Float(0.0)"
+                  },
+                  "wheel_shadows": {
+                    "keyframes": 0,
+                    "value": "Vec2(Vec2 { x: 0.0, y: 0.0 })"
+                  },
+                  "wheel_shadows_l": {
+                    "keyframes": 0,
+                    "value": "Float(0.0)"
+                  },
+                  "wheels_on": {
+                    "keyframes": 0,
+                    "value": "Bool(true)"
+                  },
+                  "whites": {
+                    "keyframes": 0,
+                    "value": "Float(0.0)"
+                  }
+                }
+              },
+              {
+                "effect": "motion",
+                "enabled": true,
+                "masks": 0,
+                "params": {
+                  "anchor": {
+                    "keyframes": 0,
+                    "value": "Vec2(Vec2 { x: 320.0, y: 180.0 })"
+                  },
+                  "anti_flicker": {
+                    "keyframes": 0,
+                    "value": "Float(0.0)"
+                  },
+                  "position": {
+                    "keyframes": 0,
+                    "value": "Vec2(Vec2 { x: 320.0, y: 180.0 })"
+                  },
+                  "rotation": {
+                    "keyframes": 0,
+                    "value": "Float(0.0)"
+                  },
+                  "scale": {
+                    "keyframes": 0,
+                    "value": "Float(100.0)"
+                  },
+                  "scale_width": {
+                    "keyframes": 0,
+                    "value": "Float(100.0)"
+                  },
+                  "uniform_scale": {
+                    "keyframes": 0,
+                    "value": "Bool(true)"
+                  }
+                }
+              },
+              {
+                "effect": "opacity",
+                "enabled": true,
+                "masks": 0,
+                "params": {
+                  "blend": {
+                    "keyframes": 0,
+                    "value": "Choice(0)"
+                  },
+                  "opacity": {
+                    "keyframes": 0,
+                    "value": "Float(100.0)"
+                  }
+                }
+              },
+              {
+                "effect": "time_remap",
+                "enabled": true,
+                "masks": 0,
+                "params": {
+                  "speed": {
+                    "keyframes": 0,
+                    "value": "Float(100.0)"
+                  }
+                }
+              }
+            ],
+            "enabled": true,
+            "end": 624456000000,
+            "endFrame": 59,
+            "gainDb": 0.0,
+            "item": 6,
+            "label": "Lavender",
+            "link": null,
+            "name": "Red",
+            "reverse": false,
+            "sourceIn": 0,
+            "sourceOut": 370440000000,
+            "speed": 1.0,
+            "start": 254016000000,
+            "startFrame": 24
+          },
+          {
+            "clip": 12,
+            "duration": 264600000000,
+            "durationFrames": 25,
+            "effects": [
+              {
+                "effect": "gaussian_blur",
+                "enabled": true,
+                "masks": 0,
+                "params": {
+                  "blurriness": {
+                    "keyframes": 0,
+                    "value": "Float(8.0)"
+                  },
+                  "dimensions": {
+                    "keyframes": 0,
+                    "value": "Choice(0)"
+                  },
+                  "repeat_edge": {
+                    "keyframes": 0,
+                    "value": "Bool(false)"
+                  }
+                }
+              },
+              {
+                "effect": "motion",
+                "enabled": true,
+                "masks": 0,
+                "params": {
+                  "anchor": {
+                    "keyframes": 0,
+                    "value": "Vec2(Vec2 { x: 320.0, y: 180.0 })"
+                  },
+                  "anti_flicker": {
+                    "keyframes": 0,
+                    "value": "Float(0.0)"
+                  },
+                  "position": {
+                    "keyframes": 0,
+                    "value": "Vec2(Vec2 { x: 320.0, y: 180.0 })"
+                  },
+                  "rotation": {
+                    "keyframes": 0,
+                    "value": "Float(0.0)"
+                  },
+                  "scale": {
+                    "keyframes": 0,
+                    "value": "Float(100.0)"
+                  },
+                  "scale_width": {
+                    "keyframes": 0,
+                    "value": "Float(100.0)"
+                  },
+                  "uniform_scale": {
+                    "keyframes": 0,
+                    "value": "Bool(true)"
+                  }
+                }
+              },
+              {
+                "effect": "opacity",
+                "enabled": true,
+                "masks": 0,
+                "params": {
+                  "blend": {
+                    "keyframes": 0,
+                    "value": "Choice(0)"
+                  },
+                  "opacity": {
+                    "keyframes": 0,
+                    "value": "Float(100.0)"
+                  }
+                }
+              },
+              {
+                "effect": "time_remap",
+                "enabled": true,
+                "masks": 0,
+                "params": {
+                  "speed": {
+                    "keyframes": 0,
+                    "value": "Float(100.0)"
+                  }
+                }
+              }
+            ],
+            "enabled": true,
+            "end": 889056000000,
+            "endFrame": 84,
+            "gainDb": 0.0,
+            "item": 7,
+            "label": "Lavender",
+            "link": null,
+            "name": "Amber",
+            "reverse": false,
+            "sourceIn": 31752000000,
+            "sourceOut": 296352000000,
+            "speed": 1.0,
+            "start": 624456000000,
+            "startFrame": 59
+          },
+          {
+            "clip": 13,
+            "duration": 232848000000,
+            "durationFrames": 22,
+            "effects": [
+              {
+                "effect": "motion",
+                "enabled": true,
+                "masks": 0,
+                "params": {
+                  "anchor": {
+                    "keyframes": 0,
+                    "value": "Vec2(Vec2 { x: 320.0, y: 180.0 })"
+                  },
+                  "anti_flicker": {
+                    "keyframes": 0,
+                    "value": "Float(0.0)"
+                  },
+                  "position": {
+                    "keyframes": 0,
+                    "value": "Vec2(Vec2 { x: 320.0, y: 180.0 })"
+                  },
+                  "rotation": {
+                    "keyframes": 0,
+                    "value": "Float(0.0)"
+                  },
+                  "scale": {
+                    "keyframes": 0,
+                    "value": "Float(100.0)"
+                  },
+                  "scale_width": {
+                    "keyframes": 0,
+                    "value": "Float(100.0)"
+                  },
+                  "uniform_scale": {
+                    "keyframes": 0,
+                    "value": "Bool(true)"
+                  }
+                }
+              },
+              {
+                "effect": "opacity",
+                "enabled": true,
+                "masks": 0,
+                "params": {
+                  "blend": {
+                    "keyframes": 0,
+                    "value": "Choice(0)"
+                  },
+                  "opacity": {
+                    "keyframes": 0,
+                    "value": "Float(100.0)"
+                  }
+                }
+              },
+              {
+                "effect": "time_remap",
+                "enabled": true,
+                "masks": 0,
+                "params": {
+                  "speed": {
+                    "keyframes": 0,
+                    "value": "Float(100.0)"
+                  }
+                }
+              }
+            ],
+            "enabled": true,
+            "end": 1121904000000,
+            "endFrame": 106,
+            "gainDb": 0.0,
+            "item": 8,
+            "label": "Lavender",
+            "link": null,
+            "name": "Blue",
+            "reverse": false,
+            "sourceIn": 21168000000,
+            "sourceOut": 254016000000,
+            "speed": 1.0,
+            "start": 889056000000,
+            "startFrame": 84
+          }
+        ],
+        "locked": false,
+        "muted": false,
+        "name": "Video 1",
+        "solo": false,
+        "syncLock": true,
+        "transitions": [
+          {
+            "align": "center",
+            "duration": 84672000000,
+            "effect": "cross_dissolve",
+            "from": 12,
+            "id": 16,
+            "params": {},
+            "reverse": false,
+            "start": 846720000000,
+            "to": 13
+          }
+        ]
+      },
+      {
+        "enabled": true,
+        "id": 2,
+        "items": [
+          {
+            "clip": 18,
+            "duration": 529200000000,
+            "durationFrames": 50,
+            "effects": [
+              {
+                "effect": "motion",
+                "enabled": true,
+                "masks": 0,
+                "params": {
+                  "anchor": {
+                    "keyframes": 0,
+                    "value": "Vec2(Vec2 { x: 320.0, y: 180.0 })"
+                  },
+                  "anti_flicker": {
+                    "keyframes": 0,
+                    "value": "Float(0.0)"
+                  },
+                  "position": {
+                    "keyframes": 0,
+                    "value": "Vec2(Vec2 { x: 320.0, y: 180.0 })"
+                  },
+                  "rotation": {
+                    "keyframes": 0,
+                    "value": "Float(0.0)"
+                  },
+                  "scale": {
+                    "keyframes": 0,
+                    "value": "Float(100.0)"
+                  },
+                  "scale_width": {
+                    "keyframes": 0,
+                    "value": "Float(100.0)"
+                  },
+                  "uniform_scale": {
+                    "keyframes": 0,
+                    "value": "Bool(true)"
+                  }
+                }
+              },
+              {
+                "effect": "opacity",
+                "enabled": true,
+                "masks": 0,
+                "params": {
+                  "blend": {
+                    "keyframes": 0,
+                    "value": "Choice(0)"
+                  },
+                  "opacity": {
+                    "keyframes": 0,
+                    "value": "Float(100.0)"
+                  }
+                }
+              },
+              {
+                "effect": "time_remap",
+                "enabled": true,
+                "masks": 0,
+                "params": {
+                  "speed": {
+                    "keyframes": 0,
+                    "value": "Float(100.0)"
+                  }
+                }
+              },
+              {
+                "effect": "graphic_text",
+                "enabled": true,
+                "masks": 0,
+                "params": {
+                  "align": {
+                    "keyframes": 0,
+                    "value": "Choice(0)"
+                  },
+                  "anchor": {
+                    "keyframes": 0,
+                    "value": "Vec2(Vec2 { x: 0.0, y: 0.0 })"
+                  },
+                  "background": {
+                    "keyframes": 0,
+                    "value": "Bool(true)"
+                  },
+                  "background_color": {
+                    "keyframes": 0,
+                    "value": "Color([0.101960786, 0.101960786, 0.101960786, 1.0])"
+                  },
+                  "background_opacity": {
+                    "keyframes": 0,
+                    "value": "Float(75.0)"
+                  },
+                  "background_radius": {
+                    "keyframes": 0,
+                    "value": "Float(0.0)"
+                  },
+                  "background_size": {
+                    "keyframes": 0,
+                    "value": "Float(12.0)"
+                  },
+                  "baseline_shift": {
+                    "keyframes": 0,
+                    "value": "Float(0.0)"
+                  },
+                  "box_height": {
+                    "keyframes": 0,
+                    "value": "Float(0.0)"
+                  },
+                  "box_width": {
+                    "keyframes": 0,
+                    "value": "Float(0.0)"
+                  },
+                  "caps": {
+                    "keyframes": 0,
+                    "value": "Choice(0)"
+                  },
+                  "faux_bold": {
+                    "keyframes": 0,
+                    "value": "Bool(false)"
+                  },
+                  "faux_italic": {
+                    "keyframes": 0,
+                    "value": "Bool(false)"
+                  },
+                  "fill": {
+                    "keyframes": 0,
+                    "value": "Bool(true)"
+                  },
+                  "fill_color": {
+                    "keyframes": 0,
+                    "value": "Color([1.0, 1.0, 1.0, 1.0])"
+                  },
+                  "fill_kind": {
+                    "keyframes": 0,
+                    "value": "Choice(0)"
+                  },
+                  "font": {
+                    "keyframes": 0,
+                    "value": "Text(\"Noto Serif\")"
+                  },
+                  "font_style": {
+                    "keyframes": 0,
+                    "value": "Text(\"Bold\")"
+                  },
+                  "gradient_angle": {
+                    "keyframes": 0,
+                    "value": "Float(0.0)"
+                  },
+                  "gradient_end": {
+                    "keyframes": 0,
+                    "value": "Color([0.15, 0.15, 0.15, 1.0])"
+                  },
+                  "gradient_start": {
+                    "keyframes": 0,
+                    "value": "Color([1.0, 1.0, 1.0, 1.0])"
+                  },
+                  "kerning": {
+                    "keyframes": 0,
+                    "value": "Bool(true)"
+                  },
+                  "leading": {
+                    "keyframes": 0,
+                    "value": "Float(0.0)"
+                  },
+                  "ligatures": {
+                    "keyframes": 0,
+                    "value": "Bool(true)"
+                  },
+                  "name": {
+                    "keyframes": 0,
+                    "value": "Text(\"\")"
+                  },
+                  "opacity": {
+                    "keyframes": 0,
+                    "value": "Float(100.0)"
+                  },
+                  "position": {
+                    "keyframes": 0,
+                    "value": "Vec2(Vec2 { x: 48.0, y: 200.0 })"
+                  },
+                  "rotation": {
+                    "keyframes": 0,
+                    "value": "Float(0.0)"
+                  },
+                  "scale": {
+                    "keyframes": 0,
+                    "value": "Float(100.0)"
+                  },
+                  "scale_width": {
+                    "keyframes": 0,
+                    "value": "Float(100.0)"
+                  },
+                  "shadow": {
+                    "keyframes": 0,
+                    "value": "Bool(false)"
+                  },
+                  "shadow_angle": {
+                    "keyframes": 0,
+                    "value": "Float(135.0)"
+                  },
+                  "shadow_blur": {
+                    "keyframes": 0,
+                    "value": "Float(40.0)"
+                  },
+                  "shadow_color": {
+                    "keyframes": 0,
+                    "value": "Color([0.0, 0.0, 0.0, 1.0])"
+                  },
+                  "shadow_distance": {
+                    "keyframes": 0,
+                    "value": "Float(10.0)"
+                  },
+                  "shadow_opacity": {
+                    "keyframes": 0,
+                    "value": "Float(75.0)"
+                  },
+                  "shadow_size": {
+                    "keyframes": 0,
+                    "value": "Float(0.0)"
+                  },
+                  "size": {
+                    "keyframes": 0,
+                    "value": "Float(64.0)"
+                  },
+                  "stroke": {
+                    "keyframes": 0,
+                    "value": "Bool(false)"
+                  },
+                  "stroke2": {
+                    "keyframes": 0,
+                    "value": "Bool(false)"
+                  },
+                  "stroke2_color": {
+                    "keyframes": 0,
+                    "value": "Color([1.0, 0.85, 0.2, 1.0])"
+                  },
+                  "stroke2_type": {
+                    "keyframes": 0,
+                    "value": "Choice(0)"
+                  },
+                  "stroke2_width": {
+                    "keyframes": 0,
+                    "value": "Float(10.0)"
+                  },
+                  "stroke_color": {
+                    "keyframes": 0,
+                    "value": "Color([0.0, 0.0, 0.0, 1.0])"
+                  },
+                  "stroke_type": {
+                    "keyframes": 0,
+                    "value": "Choice(0)"
+                  },
+                  "stroke_width": {
+                    "keyframes": 0,
+                    "value": "Float(4.0)"
+                  },
+                  "text": {
+                    "keyframes": 0,
+                    "value": "Text(\"FilmCraft MCP\")"
+                  },
+                  "tracking": {
+                    "keyframes": 0,
+                    "value": "Float(0.0)"
+                  },
+                  "underline": {
+                    "keyframes": 0,
+                    "value": "Bool(false)"
+                  },
+                  "uniform_scale": {
+                    "keyframes": 0,
+                    "value": "Bool(true)"
+                  },
+                  "vertical": {
+                    "keyframes": 0,
+                    "value": "Bool(false)"
+                  }
+                }
+              }
+            ],
+            "enabled": true,
+            "end": 814968000000,
+            "endFrame": 77,
+            "gainDb": 0.0,
+            "item": 17,
+            "label": "Rose",
+            "link": null,
+            "name": "FilmCraft MCP",
+            "reverse": false,
+            "sourceIn": 0,
+            "sourceOut": 529200000000,
+            "speed": 1.0,
+            "start": 285768000000,
+            "startFrame": 27
+          }
+        ],
+        "locked": false,
+        "muted": false,
+        "name": "Video 2",
+        "solo": false,
+        "syncLock": true,
+        "transitions": []
+      },
+      {
+        "enabled": true,
+        "id": 21,
+        "items": [
+          {
+            "clip": 20,
+            "duration": 529200000000,
+            "durationFrames": 50,
+            "effects": [
+              {
+                "effect": "motion",
+                "enabled": true,
+                "masks": 0,
+                "params": {
+                  "anchor": {
+                    "keyframes": 0,
+                    "value": "Vec2(Vec2 { x: 320.0, y: 180.0 })"
+                  },
+                  "anti_flicker": {
+                    "keyframes": 0,
+                    "value": "Float(0.0)"
+                  },
+                  "position": {
+                    "keyframes": 0,
+                    "value": "Vec2(Vec2 { x: 320.0, y: 180.0 })"
+                  },
+                  "rotation": {
+                    "keyframes": 0,
+                    "value": "Float(0.0)"
+                  },
+                  "scale": {
+                    "keyframes": 0,
+                    "value": "Float(100.0)"
+                  },
+                  "scale_width": {
+                    "keyframes": 0,
+                    "value": "Float(100.0)"
+                  },
+                  "uniform_scale": {
+                    "keyframes": 0,
+                    "value": "Bool(true)"
+                  }
+                }
+              },
+              {
+                "effect": "opacity",
+                "enabled": true,
+                "masks": 0,
+                "params": {
+                  "blend": {
+                    "keyframes": 0,
+                    "value": "Choice(0)"
+                  },
+                  "opacity": {
+                    "keyframes": 0,
+                    "value": "Float(100.0)"
+                  }
+                }
+              },
+              {
+                "effect": "time_remap",
+                "enabled": true,
+                "masks": 0,
+                "params": {
+                  "speed": {
+                    "keyframes": 0,
+                    "value": "Float(100.0)"
+                  }
+                }
+              },
+              {
+                "effect": "graphic_shape",
+                "enabled": true,
+                "masks": 0,
+                "params": {
+                  "anchor": {
+                    "keyframes": 0,
+                    "value": "Vec2(Vec2 { x: 0.0, y: 0.0 })"
+                  },
+                  "background": {
+                    "keyframes": 0,
+                    "value": "Bool(false)"
+                  },
+                  "background_color": {
+                    "keyframes": 0,
+                    "value": "Color([0.0, 0.0, 0.0, 1.0])"
+                  },
+                  "background_opacity": {
+                    "keyframes": 0,
+                    "value": "Float(75.0)"
+                  },
+                  "background_radius": {
+                    "keyframes": 0,
+                    "value": "Float(0.0)"
+                  },
+                  "background_size": {
+                    "keyframes": 0,
+                    "value": "Float(12.0)"
+                  },
+                  "corner_radius": {
+                    "keyframes": 0,
+                    "value": "Float(0.0)"
+                  },
+                  "fill": {
+                    "keyframes": 0,
+                    "value": "Bool(true)"
+                  },
+                  "fill_color": {
+                    "keyframes": 0,
+                    "value": "Color([0.85, 0.2, 0.25, 1.0])"
+                  },
+                  "fill_kind": {
+                    "keyframes": 0,
+                    "value": "Choice(0)"
+                  },
+                  "gradient_angle": {
+                    "keyframes": 0,
+                    "value": "Float(0.0)"
+                  },
+                  "gradient_end": {
+                    "keyframes": 0,
+                    "value": "Color([0.15, 0.15, 0.15, 1.0])"
+                  },
+                  "gradient_start": {
+                    "keyframes": 0,
+                    "value": "Color([1.0, 1.0, 1.0, 1.0])"
+                  },
+                  "name": {
+                    "keyframes": 0,
+                    "value": "Text(\"\")"
+                  },
+                  "opacity": {
+                    "keyframes": 0,
+                    "value": "Float(100.0)"
+                  },
+                  "points": {
+                    "keyframes": 0,
+                    "value": "Curve([])"
+                  },
+                  "position": {
+                    "keyframes": 0,
+                    "value": "Vec2(Vec2 { x: 320.0, y: 300.0 })"
+                  },
+                  "rotation": {
+                    "keyframes": 0,
+                    "value": "Float(0.0)"
+                  },
+                  "scale": {
+                    "keyframes": 0,
+                    "value": "Float(100.0)"
+                  },
+                  "scale_width": {
+                    "keyframes": 0,
+                    "value": "Float(100.0)"
+                  },
+                  "shadow": {
+                    "keyframes": 0,
+                    "value": "Bool(false)"
+                  },
+                  "shadow_angle": {
+                    "keyframes": 0,
+                    "value": "Float(135.0)"
+                  },
+                  "shadow_blur": {
+                    "keyframes": 0,
+                    "value": "Float(40.0)"
+                  },
+                  "shadow_color": {
+                    "keyframes": 0,
+                    "value": "Color([0.0, 0.0, 0.0, 1.0])"
+                  },
+                  "shadow_distance": {
+                    "keyframes": 0,
+                    "value": "Float(10.0)"
+                  },
+                  "shadow_opacity": {
+                    "keyframes": 0,
+                    "value": "Float(75.0)"
+                  },
+                  "shadow_size": {
+                    "keyframes": 0,
+                    "value": "Float(0.0)"
+                  },
+                  "shape": {
+                    "keyframes": 0,
+                    "value": "Choice(0)"
+                  },
+                  "sides": {
+                    "keyframes": 0,
+                    "value": "Float(6.0)"
+                  },
+                  "size": {
+                    "keyframes": 0,
+                    "value": "Vec2(Vec2 { x: 520.0, y: 8.0 })"
+                  },
+                  "stroke": {
+                    "keyframes": 0,
+                    "value": "Bool(false)"
+                  },
+                  "stroke2": {
+                    "keyframes": 0,
+                    "value": "Bool(false)"
+                  },
+                  "stroke2_color": {
+                    "keyframes": 0,
+                    "value": "Color([1.0, 0.85, 0.2, 1.0])"
+                  },
+                  "stroke2_type": {
+                    "keyframes": 0,
+                    "value": "Choice(0)"
+                  },
+                  "stroke2_width": {
+                    "keyframes": 0,
+                    "value": "Float(10.0)"
+                  },
+                  "stroke_color": {
+                    "keyframes": 0,
+                    "value": "Color([0.0, 0.0, 0.0, 1.0])"
+                  },
+                  "stroke_type": {
+                    "keyframes": 0,
+                    "value": "Choice(0)"
+                  },
+                  "stroke_width": {
+                    "keyframes": 0,
+                    "value": "Float(4.0)"
+                  },
+                  "uniform_scale": {
+                    "keyframes": 0,
+                    "value": "Bool(true)"
+                  }
+                }
+              }
+            ],
+            "enabled": true,
+            "end": 814968000000,
+            "endFrame": 77,
+            "gainDb": 0.0,
+            "item": 17,
+            "label": "Rose",
+            "link": null,
+            "name": "Shape",
+            "reverse": false,
+            "sourceIn": 0,
+            "sourceOut": 529200000000,
+            "speed": 1.0,
+            "start": 285768000000,
+            "startFrame": 27
+          }
+        ],
+        "locked": false,
+        "muted": false,
+        "name": "Video 3",
+        "solo": false,
+        "syncLock": true,
+        "transitions": []
+      }
+    ]
+  },
+  "toolCount": 70
+}
