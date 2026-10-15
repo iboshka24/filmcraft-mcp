@@ -48,7 +48,9 @@ cargo run -p filmcraft-mcp -- http --bind 127.0.0.1:8765
 - `durationSeconds` on insert/overwrite is the timeline length. `sourceInSeconds` is the source in-point. The engine also accepts tick fields (`duration`, `sourceIn`, `time`).
 - `edit_trim` `edge` is `in` or `out`. `mode` is the engine trim mode (`ripple`, `roll`, `trim`, …). A ripple that would move a sync-locked track with a clip in the way fails until that track's sync lock is off (`track_set`).
 - `export_media` `format` is an engine format id (`h264`, `prores`, `wav`, `png`, `gif`, `aac`, …). `range` is `entire`, `inOut`, `workArea`, or `custom` (then `startSeconds` / `endSeconds`). `wait` defaults to true.
-- `color_grade` applies Lumetri Color and sets the basic-correction parameters you pass.
+- `media_import_demo` imports a procedural scene (`OceanSunset`, `Aurora`, `CityNight`, `Dunes`, `Plasma`, `Forest`): moving picture plus a musical pad. Omit `scene` to import all six.
+- `keyframe_set` writes one keyframe (`effects.setParam` with `keyframe: true`) at a timeline `seconds`, and sets easing when `ease` is present. `effect` defaults to `motion`. `graphic_text` and `graphic_shape` animate a title or shape layer (position, scale, opacity). `easeOut` eases the segment leaving that key; `easeIn` eases the segment arriving at it.
+- `color_grade` applies Lumetri Color and sets the basic-correction parameters you pass. Vignette and other Lumetri parameters are `effect_set_param`.
 - `command_run` is the escape hatch: `{id, params}` is `Session::execute`. `command_list` shows ids, labels, and whether each command is enabled.
 - `undo` / `redo` walk the same history the desktop app uses.
 
@@ -64,7 +66,7 @@ Regenerate the tables below with `filmcraft-mcp tools`.
 
 # FilmCraft MCP tools
 
-70 named tools. Each row is wired to the FilmCraft engine (a command id, the program renderer, or the demuxer). `command_run` still reaches every other engine command.
+72 named tools. Each row is wired to the FilmCraft engine (a command id, the program renderer, or the demuxer). `command_run` still reaches every other engine command.
 
 | Tool | Calls | Read-only | Arguments |
 |---|---|---|---|
@@ -75,6 +77,7 @@ Regenerate the tables below with `filmcraft-mcp tools`.
 | `project_inspect` | project.inspect | yes | — |
 | `bin_new` | file.newBin | no | `name?`, `parent?` |
 | `media_import` | file.import | no | `paths`, `bin?`, `imageSequence?`, `replace?` |
+| `media_import_demo` | file.importDemoFootage | no | `scene?` |
 | `media_probe` | filmcraft_codecs::open_bytes | yes | `path` |
 | `media_status` | media.status | yes | — |
 | `media_search` | media.search | yes | `query?` |
@@ -116,6 +119,7 @@ Regenerate the tables below with `filmcraft-mcp tools`.
 | `effect_apply` | effects.apply | no | `effect`, `clips?` |
 | `effect_remove` | effects.remove | no | `clip`, `index` |
 | `effect_set_param` | effects.setParam | no | `clip`, `effect`, `param`, `value` |
+| `keyframe_set` | effects.setParam keyframe + effects.setInterpolation | no | `clip`, `param`, `value`, `seconds?`, `frame?`, `time?`, `effect?`, `layer?`, `ease?` |
 | `effect_list` | filmcraft_project::effect_defs | yes | `query?`, `kind?` |
 | `color_grade` | effects.apply lumetri + effects.setParam | no | `clip?`, `clips?`, `exposure?`, `contrast?`, `saturation?`, `temperature?`, `tint?`, `highlights?`, `shadows?`, `whites?`, `blacks?`, `vibrance?` |
 | `audio_gain` | clip.audioGain | no | `clips?`, `mode?`, `db?` |
@@ -132,7 +136,7 @@ Regenerate the tables below with `filmcraft-mcp tools`.
 | `playhead_set` | playhead.set | no | `seconds?`, `frame?`, `time?`, `timecode?`, `target?` |
 | `capture_frame` | Session::try_render_program_at | yes | `seconds?`, `path?`, `maxSide?` |
 | `export_frame` | file.exportFrame | no | `path`, `target?`, `format?` |
-| `export_media` | file.exportMedia | no | `path`, `format?`, `preset?`, `width?`, `height?`, `audio?`, `range?`, `startSeconds?`, `endSeconds?`, `wait?` |
+| `export_media` | file.exportMedia | no | `path`, `format?`, `preset?`, `width?`, `height?`, `fps?`, `audio?`, `range?`, `startSeconds?`, `endSeconds?`, `wait?` |
 | `close_gap` | sequence.closeGap | no | `track`, `seconds?`, `frame?`, `time?` |
 | `jobs_list` | jobs.list | yes | — |
 | `state_query` | project.inspect + sequence.inspect | yes | — |
@@ -150,6 +154,7 @@ Regenerate the tables below with `filmcraft-mcp tools`.
 - **`project_inspect`** — Bins, items (ids, types, durations) and the active sequence id.
 - **`bin_new`** — Create a project bin.
 - **`media_import`** — Import media files into the project (and optionally a bin).
+- **`media_import_demo`** — Import FilmCraft's procedural scenes (moving picture and a musical pad). scene is OceanSunset, Aurora, CityNight, Dunes, Plasma, or Forest. Omit scene to import all six.
 - **`media_probe`** — Demux a file with FilmCraft's codecs and return stream info. Does not modify the project.
 - **`media_status`** — Online / offline / missing status of project media.
 - **`media_search`** — Search project items by name.
@@ -191,6 +196,7 @@ Regenerate the tables below with `filmcraft-mcp tools`.
 - **`effect_apply`** — Apply an effect by id or display name (gaussian_blur, Lumetri Color, …). See effect_list.
 - **`effect_remove`** — Remove one non-intrinsic effect by index on a clip.
 - **`effect_set_param`** — Set one effect parameter. Pass effect as an id or index.
+- **`keyframe_set`** — Animate a parameter. Writes a keyframe at seconds (timeline) and turns animation on. effect defaults to motion; use opacity, graphic_text, or graphic_shape for fades and title or shape motion. ease is linear, easeIn, easeOut, hold, bezier, or autoBezier (easeOut leaves this key, easeIn arrives at it).
 - **`effect_list`** — Built-in video, audio, and transition effects with parameter ids.
 - **`color_grade`** — Apply Lumetri Color and set basic correction (exposure, contrast, saturation, temperature, tint, highlights, shadows, whites, blacks, vibrance).
 - **`audio_gain`** — Set, adjust, or normalize clip gain in dB (clip.audioGain).

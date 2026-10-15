@@ -1,0 +1,8 @@
+asset:        close.png
+title:        Nightfall frame at 10.5 s (dunes, chapter)
+author:       FilmCraft contributors
+source:       original work
+license:      MIT OR Apache-2.0
+license-file: LICENSE-MIT
+added:        2026-10-15 by filmcraft-mcp demo
+notes:        Program frame rendered by filmcraft-mcp capture_frame. Dunes is a FilmCraft procedural demo scene. Chapter title uses bundled Noto Serif (OFL-1.1). No external media.

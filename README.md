@@ -2,17 +2,21 @@
 
 # FilmCraft MCP
 
-A headless [Model Context Protocol](https://modelcontextprotocol.io) server over the FilmCraft engine. An agent can open a project, import and probe media, cut a timeline, grade, mix, capture a frame, and export a movie by calling **70 named tools**. Every edit tool runs a real engine command on a real `Session`. `command_run` still reaches the rest of the command catalogue (650+ ids).
+![Nightfall: a 12 second edit — ocean, aurora, city, and dunes, with an animated title](docs/demo/demo.gif)
+
+*Nightfall.* Twelve seconds, 1920×1080, 30 fps, cut only by calling the MCP tools (`scripts/demo_edit.py`). The picture above is the animated GIF preview (640×360, 10 fps). The master is [`docs/demo/demo.mp4`](docs/demo/demo.mp4): H.264 and AAC, encoded by FilmCraft.
+
+A headless [Model Context Protocol](https://modelcontextprotocol.io) server over the FilmCraft engine. An agent can open a project, import and probe media, cut a timeline, grade, mix, capture a frame, and export a movie by calling **72 named tools**. Every edit tool runs a real engine command on a real `Session`. `command_run` still reaches the rest of the command catalogue (650+ ids).
 
 Stdio (one JSON-RPC object per line, or `Content-Length` framing) and loopback HTTP (`POST /mcp`) share that session.
 
 ## Demo
 
-Built only by calling those tools (`scripts/demo_edit.py` against `filmcraft-mcp http`). 640×360, 24 fps, about 4.4 seconds. Color bars, a graded red under a title, a blurred amber shot with a dissolve into blue, and bars-and-tone on A1 at −8 dB with a fade. The file is `docs/demo/demo.mp4` (H.264 + AAC, encoded by FilmCraft).
+Procedural scenes from `media_import_demo` (ocean, aurora, city night, dunes), each with its own push, pan, or drift (`keyframe_set` on Motion position, scale, and rotation, eased in and out). Film dissolve, light leak, and cross zoom between them. A screen-blended plasma leak, a gradient floor and a drifting light, and titles whose position, scale, and opacity are keyframed (`graphic_text` / `graphic_shape`). Lumetri on every shot, vignette included. Two musical pads (city and aurora) with gain and fades.
 
-| 0.35 s — bars | 1.7 s — title on the grade | 4.0 s — blue |
+| 1.8 s — open | 5.1 s — aurora | 10.5 s — dunes |
 |---|---|---|
-| ![Color bars at 0.35 seconds](docs/demo/early.png) | ![Title FilmCraft MCP on a graded red frame](docs/demo/title.png) | ![Blue frame at 4 seconds](docs/demo/late.png) |
+| ![Ocean sunset under the title NIGHTFALL](docs/demo/open.png) | ![Aurora with the title held](docs/demo/mid.png) | ![Dunes at sunset with the chapter title](docs/demo/close.png) |
 
 ```sh
 cargo run -p filmcraft-mcp -- http --bind 127.0.0.1:8765
@@ -99,15 +103,15 @@ cargo run -p filmcraft-mcp -- http --bind 127.0.0.1:8765
 
 ## Tools
 
-70 tools. The full argument tables are in [docs/MCP.md](docs/MCP.md). Time arguments accept `seconds`, `frame`, `time` (ticks; 254016000000 = 1 second), or `timecode` when the engine command does. On titles and shapes, `seconds` is the **duration** and `time` is the start.
+72 tools. The full argument tables are in [docs/MCP.md](docs/MCP.md). Time arguments accept `seconds`, `frame`, `time` (ticks; 254016000000 = 1 second), or `timecode` when the engine command does. On titles and shapes, `seconds` is the **duration** and `time` is the start. `keyframe_set` takes timeline `seconds` and writes a keyframe (easeOut leaves that key, easeIn arrives at it).
 
 | Group | Tools |
 |---|---|
 | Project | `project_new`, `project_open`, `project_save`, `project_save_as`, `project_inspect`, `bin_new` |
-| Media | `media_import`, `media_probe`, `media_status`, `media_search`, `generate_color_matte`, `generate_bars_and_tone`, `generate_black_video`, `generate_counting_leader`, `generate_transparent` |
+| Media | `media_import`, `media_import_demo`, `media_probe`, `media_status`, `media_search`, `generate_color_matte`, `generate_bars_and_tone`, `generate_black_video`, `generate_counting_leader`, `generate_transparent` |
 | Sequence | `sequence_new`, `sequence_open`, `sequence_inspect`, `sequence_settings`, `sequence_close`, `tracks_add`, `track_delete`, `track_set`, `track_target` |
 | Picture and sound edits | `edit_insert`, `edit_overwrite`, `edit_ripple_delete`, `edit_delete`, `edit_lift`, `edit_extract`, `edit_roll`, `edit_slip`, `edit_slide`, `edit_split`, `edit_split_all`, `edit_trim`, `edit_move`, `edit_rate_stretch`, `edit_select`, `close_gap` |
-| Transitions, titles, effects | `transition_video`, `transition_audio`, `transition_set`, `transition_clear`, `title_add`, `shape_add`, `effect_apply`, `effect_remove`, `effect_set_param`, `effect_list`, `color_grade` |
+| Transitions, titles, effects | `transition_video`, `transition_audio`, `transition_set`, `transition_clear`, `title_add`, `shape_add`, `effect_apply`, `effect_remove`, `effect_set_param`, `keyframe_set`, `effect_list`, `color_grade` |
 | Audio and markers | `audio_gain`, `audio_fade`, `audio_peak`, `marker_add`, `marker_range`, `marker_clear`, `mark_in`, `mark_out`, `mark_clear` |
 | History, picture, export | `undo`, `redo`, `playhead_set`, `capture_frame`, `export_frame`, `export_media`, `jobs_list`, `state_query`, `command_list`, `command_run` |
 
@@ -117,7 +121,7 @@ cargo run -p filmcraft-mcp -- http --bind 127.0.0.1:8765
 
 Это форк [storytold/filmcraft](https://github.com/storytold/filmcraft) (коммит `8309f21`, лицензия MIT OR Apache-2.0). Официальным релизом FilmCraft он не является. Товарные знаки ArtCraft из дерева удалены.
 
-Сервер `filmcraft-mcp` отдаёт **70 именованных инструментов** протокола MCP поверх настоящего движка монтажа: проекты, импорт и проба медиа, секвенции и дорожки, insert / overwrite / ripple / roll / slip / slide, split, trim, move, delete, переходы, титры, эффекты, цвет, громкость и фейды, маркеры, undo/redo, кадр, экспорт и запрос состояния. Транспорты: stdio и HTTP только на loopback (`127.0.0.1:8765`, опционально `FILMCRAFT_MCP_TOKEN`).
+Сервер `filmcraft-mcp` отдаёт **72 именованных инструмента** протокола MCP поверх настоящего движка монтажа: проекты, импорт и проба медиа, процедурные сцены, секвенции и дорожки, insert / overwrite / ripple / roll / slip / slide, split, trim, move, delete, переходы, титры, эффекты, ключевые кадры (`keyframe_set`), цвет, громкость и фейды, маркеры, undo/redo, кадр, экспорт и запрос состояния. Транспорты: stdio и HTTP только на loopback (`127.0.0.1:8765`, опционально `FILMCRAFT_MCP_TOKEN`).
 
 ```sh
 cargo build -p filmcraft-mcp
@@ -126,7 +130,7 @@ cargo build -p filmcraft-mcp
 python3 scripts/demo_edit.py docs/demo
 ```
 
-Клиенту нужен абсолютный путь к бинарнику и аргумент `stdio` (Cursor, Claude Desktop, Claude Code, Codex, OpenCode — примеры выше). Полный список аргументов: [docs/MCP.md](docs/MCP.md). Демонстрационный ролик `docs/demo/demo.mp4` собран этими инструментами: цветовые полосы, титр на градированном красном, янтарный план с блюром и растворением в синий, тон на −8 дБ.
+Клиенту нужен абсолютный путь к бинарнику и аргумент `stdio` (Cursor, Claude Desktop, Claude Code, Codex, OpenCode — примеры выше). Полный список аргументов: [docs/MCP.md](docs/MCP.md). Ролик *Nightfall* (`docs/demo/demo.mp4`, превью `docs/demo/demo.gif`) собран только этими инструментами: океан, сияние, ночной город и дюны, движение на каждом плане, титр с ключевыми кадрами позиции, масштаба и непрозрачности, градиенты и музыкальная подложка с фейдами.
 
 Ограничения: один проект на процесс; HTTP не слушает внешние интерфейсы и не является полным streamable-HTTP с SSE; клики по интерфейсу остаются у `filmcraft-cli mcp --bridge`; длинный хвост команд движка вызывается через `command_run`.
 
@@ -347,7 +351,7 @@ Import merges the document's bins, media and sequences into your project as one 
 
 ## Built for agents
 
-Every menu item, button, slider and drag in FilmCraft is a **command** with an id, typed parameters and an enabled state. There are more than 650 engine commands (`filmcraft-cli commands` lists them), with the rest of Premiere's catalogue on the way. The UI, the CLI, a JSON control channel and an **MCP server** all dispatch the same commands, so Claude or any agent can cut, trim, grade, mix and export exactly the way a person does. This fork adds [`filmcraft-mcp`](docs/MCP.md): 70 named tools (insert, overwrite, roll, slip, slide, titles, color, export) on stdio and loopback HTTP, in addition to upstream `filmcraft-cli mcp`. The UI can also be driven at the level of mouse and keyboard: every widget has an automation id, and agents can click, drag, type and take screenshots.
+Every menu item, button, slider and drag in FilmCraft is a **command** with an id, typed parameters and an enabled state. There are more than 650 engine commands (`filmcraft-cli commands` lists them), with the rest of Premiere's catalogue on the way. The UI, the CLI, a JSON control channel and an **MCP server** all dispatch the same commands, so Claude or any agent can cut, trim, grade, mix and export exactly the way a person does. This fork adds [`filmcraft-mcp`](docs/MCP.md): 72 named tools (insert, overwrite, roll, slip, slide, titles, keyframes, color, export) on stdio and loopback HTTP, in addition to upstream `filmcraft-cli mcp`. The UI can also be driven at the level of mouse and keyboard: every widget has an automation id, and agents can click, drag, type and take screenshots.
 
 ```jsonc
 // over the control channel (JSON lines on TCP) or as MCP tool calls
@@ -377,7 +381,7 @@ cargo run --release -p filmcraft                           # the desktop app, wi
 cargo run --release -p filmcraft -- --control 9876         # plus the JSON-lines control server
 cargo run --release -p filmcraft-cli -- commands           # list every engine command
 cargo run --release -p filmcraft-cli -- mcp                # upstream MCP (command_run + UI bridge)
-cargo run -p filmcraft-mcp -- stdio                        # this fork: 70 named edit tools
+cargo run -p filmcraft-mcp -- stdio                        # this fork: 72 named edit tools
 cargo run -p filmcraft-mcp -- http --bind 127.0.0.1:8765   # the same tools over loopback HTTP
 ```
 

@@ -50,6 +50,8 @@ fn catalog_is_large_and_documented() {
         "edit_delete",
         "transition_video",
         "title_add",
+        "media_import_demo",
+        "keyframe_set",
         "effect_apply",
         "color_grade",
         "audio_gain",
@@ -180,6 +182,38 @@ fn edit_tools_drive_the_engine() {
     let state = must(&server, 36, "state_query", json!({}));
     assert!(state["project"].is_object() && state["sequence"].is_object(), "{state}");
     let _ = std::fs::remove_dir_all(&dir);
+}
+
+#[test]
+fn keyframe_set_moves_a_title() {
+    let server = Server::empty();
+    must(&server, 1, "sequence_new", json!({"name": "Move", "width": 320, "height": 180, "fps": 24, "video": 1, "audio": 0}));
+    let title = must(&server, 2, "title_add", json!({"text": "MOVE", "seconds": 2, "position": [20, 40], "size": 36}));
+    let clip = title["clip"].clone();
+    let first = must(
+        &server,
+        3,
+        "keyframe_set",
+        json!({"clip": clip, "effect": "graphic_text", "param": "position", "value": [16, 40], "seconds": 0.0, "ease": "easeOut"}),
+    );
+    assert_eq!(first["keyframes"], 1, "{first}");
+    let second = must(
+        &server,
+        4,
+        "keyframe_set",
+        json!({"clip": clip, "effect": "graphic_text", "param": "position", "value": [240, 120], "seconds": 1.5, "ease": "easeIn"}),
+    );
+    assert_eq!(second["keyframes"], 2, "{second}");
+    let end =
+        must(&server, 7, "keyframe_set", json!({"clip": clip, "effect": "graphic_text", "param": "scale", "value": 140, "seconds": 2.0, "ease": "easeIn"}));
+    assert_eq!(end["keyframes"], 1, "{end}");
+    let early = call(&server, 5, "capture_frame", json!({"seconds": 0.05, "maxSide": 160}));
+    let late = call(&server, 6, "capture_frame", json!({"seconds": 1.4, "maxSide": 160}));
+    assert_eq!(early["result"]["isError"], json!(false), "{early}");
+    assert_eq!(late["result"]["isError"], json!(false), "{late}");
+    let a = early["result"]["content"][1]["data"].as_str().unwrap();
+    let b = late["result"]["content"][1]["data"].as_str().unwrap();
+    assert_ne!(a, b, "the title should be in a different place");
 }
 
 #[test]

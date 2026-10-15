@@ -32,10 +32,11 @@ iconography, images or other Adobe assets; open licences only; every asset attri
 | `docs/images/filmcraft-scopes.png` | FilmCraft contributors | Original work: FilmCraft UI crop (scopes of a Charade (1963) frame, public domain) | MIT OR Apache-2.0 |
 | `docs/images/filmcraft-effects.png` | FilmCraft contributors | Original work: FilmCraft screenshot crop; NASA Earth Views (US Government work, public domain) | MIT OR Apache-2.0; footage public domain |
 | `docs/images/filmcraft-timeline.png` | FilmCraft contributors | Original work: FilmCraft UI crop; thumbnails from Night of the Living Dead (1968) and Carnival of Souls (1962), CC0 Chopin waveform | MIT OR Apache-2.0; film frames public domain |
-| `docs/demo/early.png` | FilmCraft contributors | Original work: program frame rendered by filmcraft-mcp `capture_frame` from FilmCraft generators (bars and tone) | MIT OR Apache-2.0 |
-| `docs/demo/title.png` | FilmCraft contributors | Original work: program frame rendered by filmcraft-mcp `capture_frame` (graded color matte, Noto Serif title) | MIT OR Apache-2.0 |
-| `docs/demo/late.png` | FilmCraft contributors | Original work: program frame rendered by filmcraft-mcp `capture_frame` from a FilmCraft color matte | MIT OR Apache-2.0 |
-| `docs/demo/demo.mp4` | FilmCraft contributors | Original work: H.264/AAC export from filmcraft-mcp `export_media` of a sequence built from FilmCraft generators | MIT OR Apache-2.0 |
+| `docs/demo/demo.gif` | FilmCraft contributors | Original work: animated GIF exported by filmcraft-mcp `export_media` from the Nightfall sequence (procedural demo scenes, Noto Serif titles) | MIT OR Apache-2.0 |
+| `docs/demo/open.png` | FilmCraft contributors | Original work: program frame at 1.8 s of Nightfall, rendered by filmcraft-mcp `capture_frame` | MIT OR Apache-2.0 |
+| `docs/demo/mid.png` | FilmCraft contributors | Original work: program frame at 5.1 s of Nightfall, rendered by filmcraft-mcp `capture_frame` | MIT OR Apache-2.0 |
+| `docs/demo/close.png` | FilmCraft contributors | Original work: program frame at 10.5 s of Nightfall, rendered by filmcraft-mcp `capture_frame` | MIT OR Apache-2.0 |
+| `docs/demo/demo.mp4` | FilmCraft contributors | Original work: 1920x1080 H.264/AAC export of Nightfall from filmcraft-mcp `export_media` (procedural demo scenes and bundled Noto Serif) | MIT OR Apache-2.0 |
 | `assets/app-icon/filmcraft.svg` | Brandon Thomas (FilmCraft owner) | Original work: FilmCraft app icon (owl with ear tufts), drawn by the owner in ArtCraft and vectorised; canonical vector | MIT OR Apache-2.0 (`assets/app-icon/LICENSE.txt`) |
 | `packaging/macos/dmg/background.svg` | @XusBadia | Original work: FilmCraft macOS DMG window background, derived from the FilmCraft app icon (`assets/app-icon/filmcraft.svg`); rendered to `background.tiff` by `packaging/macos/dmg/generate.py` | MIT OR Apache-2.0 (`LICENSE-MIT`, `LICENSE-APACHE`) |
 | `packaging/macos/dmg/background.tiff` | @XusBadia | Rendered from `packaging/macos/dmg/background.svg` by `packaging/macos/dmg/generate.py` | MIT OR Apache-2.0 (`LICENSE-MIT`, `LICENSE-APACHE`) |

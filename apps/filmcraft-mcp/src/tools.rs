@@ -36,6 +36,8 @@ pub enum Op {
     Effects,
     Commands,
     Run,
+    /// `effects.setParam` with `keyframe: true`, then optional interpolation.
+    Keyframe,
 }
 
 pub struct Tool {
@@ -98,6 +100,7 @@ impl Tool {
             Op::Effects => "filmcraft_project::effect_defs",
             Op::Commands => "command.list",
             Op::Run => "Session::execute",
+            Op::Keyframe => "effects.setParam keyframe + effects.setInterpolation",
         }
     }
 }
@@ -199,6 +202,16 @@ fn build() -> Vec<Tool> {
                 arg("imageSequence", "boolean", "Treat a numbered still as an image sequence.", false),
                 arg("replace", "boolean", "Replace existing footage.", false),
             ],
+        ),
+        t(
+            "media_import_demo",
+            "Import demo footage",
+            "Import FilmCraft's procedural scenes (moving picture and a musical pad). scene is OceanSunset, Aurora, CityNight, Dunes, Plasma, or Forest. Omit scene to import all six.",
+            false,
+            false,
+            false,
+            Op::Cmd("file.importDemoFootage"),
+            [arg("scene", "string", "One scene name. Omit to import every scene.", false)],
         ),
         t(
             "media_probe",
@@ -728,6 +741,26 @@ fn build() -> Vec<Tool> {
             ],
         ),
         t(
+            "keyframe_set",
+            "Set keyframe",
+            "Animate a parameter. Writes a keyframe at seconds (timeline) and turns animation on. effect defaults to motion; use opacity, graphic_text, or graphic_shape for fades and title or shape motion. ease is linear, easeIn, easeOut, hold, bezier, or autoBezier (easeOut leaves this key, easeIn arrives at it).",
+            false,
+            false,
+            false,
+            Op::Keyframe,
+            [
+                arg("clip", "integer", "Clip id.", true),
+                arg("param", "string", "Parameter id: position, scale, rotation, opacity, …", true),
+                arg("value", "any", "Number, [x, y], color, or a choice name.", true),
+                arg("seconds", "number", "Timeline time in seconds. Default: the playhead.", false),
+                arg("frame", "integer", "Timeline frame, if seconds is omitted.", false),
+                arg("time", "integer", "Timeline ticks, if seconds and frame are omitted.", false),
+                arg("effect", "string", "Effect id. Default motion. graphic_text and graphic_shape animate a title or shape layer.", false),
+                arg("layer", "integer", "Which layer of that effect id (0 is the first). Default 0 when effect is a graphic layer.", false),
+                arg("ease", "string", "linear, easeIn, easeOut, hold, bezier, or autoBezier.", false),
+            ],
+        ),
+        t(
             "effect_list",
             "List effects",
             "Built-in video, audio, and transition effects with parameter ids.",
@@ -903,6 +936,7 @@ fn build() -> Vec<Tool> {
                 arg("preset", "string", "Export preset name.", false),
                 arg("width", "integer", "Output width.", false),
                 arg("height", "integer", "Output height.", false),
+                arg("fps", "number", "Output frame rate. Default: the sequence rate.", false),
                 arg("audio", "boolean", "Include audio. Default true.", false),
                 arg("range", "string", "entire, inOut, workArea, or custom.", false),
                 arg("startSeconds", "number", "Custom range start.", false),
@@ -1096,7 +1130,68 @@ fn dispatch(session: &mut Session, op: Op, args: &Value) -> RunResult {
             let params = args.get("params").cloned().unwrap_or_else(|| json!({}));
             exec(session, id, params)
         }
+        Op::Keyframe => keyframe_set(session, args),
     }
+}
+
+fn keyframe_set(session: &mut Session, args: &Value) -> RunResult {
+    let clip = args.get("clip").cloned().ok_or("need clip")?;
+    let param = args.get("param").and_then(Value::as_str).ok_or("need param")?;
+    let value = args.get("value").cloned().ok_or("need value")?;
+    let mut effect = args.get("effect").cloned().unwrap_or_else(|| json!("motion"));
+    if let Some(layer) = args.get("layer").and_then(Value::as_u64) {
+        let kind = effect.as_str().unwrap_or("graphic_text");
+        let index = graphic_layer_index(session, clip.as_u64().ok_or("clip must be an integer")?, kind, layer)?;
+        effect = json!(index);
+    }
+    let mut params = json!({"clip": clip, "effect": effect, "param": param, "value": value, "keyframe": true});
+    for key in ["seconds", "frame", "time"] {
+        if let Some(v) = args.get(key) {
+            params[key] = v.clone();
+        }
+    }
+    let result = exec(session, "effects.setParam", params.clone())?;
+    if let Some(ease) = args.get("ease").and_then(Value::as_str) {
+        let clip_id = clip.as_u64().ok_or("clip must be an integer")?;
+        let media = keyframe_media_time(session, clip_id, args)?;
+        let interp = json!({"clip": clip, "effect": effect, "param": param, "interpolation": ease, "mediaTime": media});
+        exec(session, "effects.setInterpolation", interp)?;
+    }
+    Ok(result)
+}
+
+/// Media time of a timeline keyframe, including one that sits on the clip's last tick.
+/// `effects.setInterpolation` clamps a timeline `seconds` to `end - 1`, which misses that key.
+fn keyframe_media_time(session: &Session, clip: u64, args: &Value) -> Result<i64, String> {
+    let seq = session.active_sequence().ok_or("no sequence is open")?;
+    let (_, item) = seq.find_item(filmcraft_project::ClipId(clip)).ok_or_else(|| format!("no clip {clip}"))?;
+    let timeline = if let Some(t) = args.get("time").and_then(Value::as_i64) {
+        Tick(t)
+    } else if let Some(frame) = args.get("frame").and_then(Value::as_i64) {
+        session.sequence_rate().tick_of(frame)
+    } else if let Some(seconds) = args.get("seconds").and_then(Value::as_f64) {
+        Tick::from_seconds_f64(seconds)
+    } else {
+        session.playhead()
+    };
+    Ok(item.source_time_at(timeline).0)
+}
+
+fn graphic_layer_index(session: &Session, clip: u64, kind: &str, layer: u64) -> Result<usize, String> {
+    let seq = session.active_sequence().ok_or("no sequence is open")?;
+    let (_, item) = seq.find_item(filmcraft_project::ClipId(clip)).ok_or_else(|| format!("no clip {clip}"))?;
+    let mut seen = 0u64;
+    for (index, effect) in item.effects.iter().enumerate() {
+        let matches = effect.effect == kind || (kind == "graphic" && (effect.effect == "graphic_text" || effect.effect == "graphic_shape"));
+        if !matches {
+            continue;
+        }
+        if seen == layer {
+            return Ok(index);
+        }
+        seen += 1;
+    }
+    Err(format!("clip {clip} has no {kind} layer {layer}"))
 }
 
 fn exec(session: &mut Session, id: &str, params: Value) -> RunResult {

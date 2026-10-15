@@ -1,8 +1,0 @@
-asset:        late.png
-title:        MCP demo frame at 4.0 s (blue matte)
-author:       FilmCraft contributors
-source:       original work
-license:      MIT OR Apache-2.0
-license-file: LICENSE-MIT
-added:        2026-10-15 by filmcraft-mcp demo
-notes:        Program frame rendered by filmcraft-mcp capture_frame from a FilmCraft color-matte generator. No external media.
