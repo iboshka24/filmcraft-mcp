@@ -7,6 +7,8 @@ FilmCraft from an agent. Part 2 covers developing FilmCraft as an agent.
 
 ## 1. MCP server
 
+This fork also ships **`filmcraft-mcp`** (`apps/filmcraft-mcp`): 72 named tools (projects, media, demo scenes, sequences, insert/overwrite/ripple/roll/slip/slide, titles, keyframes, color, audio, markers, capture, export) on stdio and on loopback HTTP. Catalog and client configs: [MCP.md](MCP.md) and the top of the README. `command_run` still reaches every engine command. The upstream server below is unchanged.
+
 `filmcraft-cli mcp` serves MCP on stdio. It has two modes:
 
 | Mode | Command | What it drives |

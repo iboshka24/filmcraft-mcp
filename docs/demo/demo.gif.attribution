@@ -1,0 +1,8 @@
+asset:        demo.gif
+title:        Nightfall GIF preview (12 s, 640x360, 10 fps)
+author:       FilmCraft contributors
+source:       original work
+license:      MIT OR Apache-2.0
+license-file: LICENSE-MIT
+added:        2026-10-15 by filmcraft-mcp demo
+notes:        Animated GIF written by FilmCraft file.exportMedia through filmcraft-mcp export_media. Picture is FilmCraft procedural demo scenes (ocean, aurora, city, dunes, plasma). Titles use bundled Noto Serif (OFL-1.1). No external media. Built by scripts/demo_edit.py.

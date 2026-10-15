@@ -1,0 +1,8 @@
+asset:        demo.mp4
+title:        Nightfall (12 s, 1920x1080, 30 fps)
+author:       FilmCraft contributors
+source:       original work
+license:      MIT OR Apache-2.0
+license-file: LICENSE-MIT
+added:        2026-10-15 by filmcraft-mcp demo
+notes:        H.264 and AAC written by FilmCraft file.exportMedia through the filmcraft-mcp export_media tool. Picture and the musical pads come from FilmCraft procedural demo scenes. Titles use bundled Noto Serif (OFL-1.1). No external media. Rebuilt with scripts/demo_edit.py.

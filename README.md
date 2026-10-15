@@ -1,14 +1,140 @@
-> **Fork.** This repository, [iboshka24/filmcraft-mcp](https://github.com/iboshka24/filmcraft-mcp), imports [storytold/filmcraft](https://github.com/storytold/filmcraft) at commit `8309f21a6c3f34ddf190af7fd9bfd913053a1fd5` (MIT OR Apache-2.0). Copyright remains with the ArtCraft Team and the FilmCraft contributors. See `NOTICE`, `LICENSE-MIT`, and `LICENSE-APACHE`. It is not an official FilmCraft release.
+> **Fork.** This repository, [iboshka24/filmcraft-mcp](https://github.com/iboshka24/filmcraft-mcp), imports [storytold/filmcraft](https://github.com/storytold/filmcraft) at commit `8309f21a6c3f34ddf190af7fd9bfd913053a1fd5` (MIT OR Apache-2.0). Copyright remains with the ArtCraft Team and the FilmCraft contributors. See `NOTICE`, `LICENSE-MIT`, and `LICENSE-APACHE`. It is not an official FilmCraft release. ArtCraft wordmarks are not included; see `docs/brand/REMOVED.md`.
 
-<p align="center">
-  <a href="https://getartcraft.com/">
-    <picture>
-      <source media="(prefers-color-scheme: dark)" srcset="docs/brand/artcraft-logo-white.svg">
-      <img alt="ArtCraft" src="docs/brand/artcraft-logo.svg" width="200">
-    </picture>
-  </a>
-</p>
+# FilmCraft MCP
 
+![Nightfall: a 12 second edit — ocean, aurora, city, and dunes, with an animated title](docs/demo/demo.gif)
+
+*Nightfall.* Twelve seconds, 1920×1080, 30 fps, cut only by calling the MCP tools (`scripts/demo_edit.py`). The picture above is the animated GIF preview (640×360, 10 fps). The master is [`docs/demo/demo.mp4`](docs/demo/demo.mp4): H.264 and AAC, encoded by FilmCraft.
+
+A headless [Model Context Protocol](https://modelcontextprotocol.io) server over the FilmCraft engine. An agent can open a project, import and probe media, cut a timeline, grade, mix, capture a frame, and export a movie by calling **72 named tools**. Every edit tool runs a real engine command on a real `Session`. `command_run` still reaches the rest of the command catalogue (650+ ids).
+
+Stdio (one JSON-RPC object per line, or `Content-Length` framing) and loopback HTTP (`POST /mcp`) share that session.
+
+## Demo
+
+Procedural scenes from `media_import_demo` (ocean, aurora, city night, dunes), each with its own push, pan, or drift (`keyframe_set` on Motion position, scale, and rotation, eased in and out). Film dissolve, light leak, and cross zoom between them. A screen-blended plasma leak, a gradient floor and a drifting light, and titles whose position, scale, and opacity are keyframed (`graphic_text` / `graphic_shape`). Lumetri on every shot, vignette included. Two musical pads (city and aurora) with gain and fades.
+
+| 1.8 s — open | 5.1 s — aurora | 10.5 s — dunes |
+|---|---|---|
+| ![Ocean sunset under the title NIGHTFALL](docs/demo/open.png) | ![Aurora with the title held](docs/demo/mid.png) | ![Dunes at sunset with the chapter title](docs/demo/close.png) |
+
+```sh
+cargo run -p filmcraft-mcp -- http --bind 127.0.0.1:8765
+python3 scripts/demo_edit.py docs/demo
+```
+
+## Setup
+
+Rust **1.99** (the workspace `rust-version`). From a clone of this repo:
+
+```sh
+cargo build -p filmcraft-mcp
+./target/debug/filmcraft-mcp --help
+./target/debug/filmcraft-mcp tools          # the catalog, as markdown
+```
+
+| Command | What it does |
+|---|---|
+| `filmcraft-mcp` or `filmcraft-mcp stdio` | MCP on stdin/stdout. This is what desktop clients spawn. |
+| `filmcraft-mcp http --bind 127.0.0.1:8765` | `POST /mcp` and `GET /health`. Loopback only. |
+| `filmcraft-mcp tools` | Print every tool, the engine call it makes, and its arguments. |
+| `--project path.fcproj` | Open a project before serving. |
+| `--demo` | Open the built-in demo project. |
+| `FILMCRAFT_MCP_TOKEN` | If set, HTTP requires `Authorization: Bearer <token>`. |
+
+HTTP checks `Host` (must be loopback) and refuses a non-local `Origin`. The body limit is 1 MiB. There is one in-process project per process; concurrent calls are serialized on that session.
+
+Upstream still ships `filmcraft-cli mcp` (generic `command_run` plus UI bridge tools). This binary is the named-tool server: insert, overwrite, ripple, roll, slip, slide, and the rest are first-class tools, so a client does not have to know command ids to make a cut.
+
+## MCP client config
+
+Use the absolute path to the binary you built.
+
+**Cursor** (`.cursor/mcp.json`) and **Claude Code** (`.mcp.json` in this repo already registers the stdio server next to the upstream bridge entries):
+
+```json
+{
+  "mcpServers": {
+    "filmcraft-mcp": {
+      "command": "/absolute/path/filmcraft-mcp",
+      "args": ["stdio"]
+    }
+  }
+}
+```
+
+**Claude Desktop** (`claude_desktop_config.json`): the same `mcpServers` object.
+
+**Claude Code from the shell:**
+
+```sh
+claude mcp add filmcraft-mcp -- /absolute/path/filmcraft-mcp stdio
+```
+
+**OpenAI Codex** (`~/.codex/config.toml`):
+
+```toml
+[mcp_servers.filmcraft-mcp]
+command = "/absolute/path/filmcraft-mcp"
+args = ["stdio"]
+```
+
+**OpenCode** (`opencode.json`):
+
+```json
+{
+  "mcp": {
+    "filmcraft-mcp": {
+      "type": "local",
+      "command": ["/absolute/path/filmcraft-mcp", "stdio"]
+    }
+  }
+}
+```
+
+**HTTP**, for a client that can POST JSON-RPC (or for `scripts/demo_edit.py`):
+
+```sh
+cargo run -p filmcraft-mcp -- http --bind 127.0.0.1:8765
+# optional: FILMCRAFT_MCP_TOKEN=secret cargo run -p filmcraft-mcp -- http --bind 127.0.0.1:8765
+```
+
+`POST http://127.0.0.1:8765/mcp` with `Content-Type: application/json` and `Host: 127.0.0.1:8765`. Initialize with protocol version `2025-06-18`, then `tools/list` and `tools/call`. Resources: `filmcraft://document` (project + sequence) and `filmcraft://tools` (this catalog).
+
+## Tools
+
+72 tools. The full argument tables are in [docs/MCP.md](docs/MCP.md). Time arguments accept `seconds`, `frame`, `time` (ticks; 254016000000 = 1 second), or `timecode` when the engine command does. On titles and shapes, `seconds` is the **duration** and `time` is the start. `keyframe_set` takes timeline `seconds` and writes a keyframe (easeOut leaves that key, easeIn arrives at it).
+
+| Group | Tools |
+|---|---|
+| Project | `project_new`, `project_open`, `project_save`, `project_save_as`, `project_inspect`, `bin_new` |
+| Media | `media_import`, `media_import_demo`, `media_probe`, `media_status`, `media_search`, `generate_color_matte`, `generate_bars_and_tone`, `generate_black_video`, `generate_counting_leader`, `generate_transparent` |
+| Sequence | `sequence_new`, `sequence_open`, `sequence_inspect`, `sequence_settings`, `sequence_close`, `tracks_add`, `track_delete`, `track_set`, `track_target` |
+| Picture and sound edits | `edit_insert`, `edit_overwrite`, `edit_ripple_delete`, `edit_delete`, `edit_lift`, `edit_extract`, `edit_roll`, `edit_slip`, `edit_slide`, `edit_split`, `edit_split_all`, `edit_trim`, `edit_move`, `edit_rate_stretch`, `edit_select`, `close_gap` |
+| Transitions, titles, effects | `transition_video`, `transition_audio`, `transition_set`, `transition_clear`, `title_add`, `shape_add`, `effect_apply`, `effect_remove`, `effect_set_param`, `keyframe_set`, `effect_list`, `color_grade` |
+| Audio and markers | `audio_gain`, `audio_fade`, `audio_peak`, `marker_add`, `marker_range`, `marker_clear`, `mark_in`, `mark_out`, `mark_clear` |
+| History, picture, export | `undo`, `redo`, `playhead_set`, `capture_frame`, `export_frame`, `export_media`, `jobs_list`, `state_query`, `command_list`, `command_run` |
+
+`capture_frame` renders one program frame (PNG file and an image content block) without moving the playhead. `export_media` calls `file.exportMedia` and waits until the file is written unless `wait` is false.
+
+## По-русски
+
+Это форк [storytold/filmcraft](https://github.com/storytold/filmcraft) (коммит `8309f21`, лицензия MIT OR Apache-2.0). Официальным релизом FilmCraft он не является. Товарные знаки ArtCraft из дерева удалены.
+
+Сервер `filmcraft-mcp` отдаёт **72 именованных инструмента** протокола MCP поверх настоящего движка монтажа: проекты, импорт и проба медиа, процедурные сцены, секвенции и дорожки, insert / overwrite / ripple / roll / slip / slide, split, trim, move, delete, переходы, титры, эффекты, ключевые кадры (`keyframe_set`), цвет, громкость и фейды, маркеры, undo/redo, кадр, экспорт и запрос состояния. Транспорты: stdio и HTTP только на loopback (`127.0.0.1:8765`, опционально `FILMCRAFT_MCP_TOKEN`).
+
+```sh
+cargo build -p filmcraft-mcp
+./target/debug/filmcraft-mcp stdio
+./target/debug/filmcraft-mcp http --bind 127.0.0.1:8765
+python3 scripts/demo_edit.py docs/demo
+```
+
+Клиенту нужен абсолютный путь к бинарнику и аргумент `stdio` (Cursor, Claude Desktop, Claude Code, Codex, OpenCode — примеры выше). Полный список аргументов: [docs/MCP.md](docs/MCP.md). Ролик *Nightfall* (`docs/demo/demo.mp4`, превью `docs/demo/demo.gif`) собран только этими инструментами: океан, сияние, ночной город и дюны, движение на каждом плане, титр с ключевыми кадрами позиции, масштаба и непрозрачности, градиенты и музыкальная подложка с фейдами.
+
+Ограничения: один проект на процесс; HTTP не слушает внешние интерфейсы и не является полным streamable-HTTP с SSE; клики по интерфейсу остаются у `filmcraft-cli mcp --bridge`; длинный хвост команд движка вызывается через `command_run`.
+
+---
 
 <h1 align="center">FilmCraft</h1>
 
@@ -225,7 +351,7 @@ Import merges the document's bins, media and sequences into your project as one 
 
 ## Built for agents
 
-Every menu item, button, slider and drag in FilmCraft is a **command** with an id, typed parameters and an enabled state. There are more than 650 engine commands (`filmcraft-cli commands` lists them), with the rest of Premiere's catalogue on the way. The UI, the CLI, a JSON control channel and an **MCP server** all dispatch the same commands, so Claude or any agent can cut, trim, grade, mix and export exactly the way a person does. The UI can also be driven at the level of mouse and keyboard: every widget has an automation id, and agents can click, drag, type and take screenshots.
+Every menu item, button, slider and drag in FilmCraft is a **command** with an id, typed parameters and an enabled state. There are more than 650 engine commands (`filmcraft-cli commands` lists them), with the rest of Premiere's catalogue on the way. The UI, the CLI, a JSON control channel and an **MCP server** all dispatch the same commands, so Claude or any agent can cut, trim, grade, mix and export exactly the way a person does. This fork adds [`filmcraft-mcp`](docs/MCP.md): 72 named tools (insert, overwrite, roll, slip, slide, titles, keyframes, color, export) on stdio and loopback HTTP, in addition to upstream `filmcraft-cli mcp`. The UI can also be driven at the level of mouse and keyboard: every widget has an automation id, and agents can click, drag, type and take screenshots.
 
 ```jsonc
 // over the control channel (JSON lines on TCP) or as MCP tool calls
@@ -254,7 +380,9 @@ The trailer and the grades in these screenshots were built exactly this way, by 
 cargo run --release -p filmcraft                           # the desktop app, with a demo project
 cargo run --release -p filmcraft -- --control 9876         # plus the JSON-lines control server
 cargo run --release -p filmcraft-cli -- commands           # list every engine command
-cargo run --release -p filmcraft-cli -- mcp                # MCP server (headless)
+cargo run --release -p filmcraft-cli -- mcp                # upstream MCP (command_run + UI bridge)
+cargo run -p filmcraft-mcp -- stdio                        # this fork: 72 named edit tools
+cargo run -p filmcraft-mcp -- http --bind 127.0.0.1:8765   # the same tools over loopback HTTP
 ```
 
 Japanese text in the interface and in titles comes from [craft-fonts](https://github.com/storytold/craft-fonts), an optional build input (release builds always include it; without it FilmCraft uses its own and the system's fonts):
@@ -274,8 +402,9 @@ The control protocol is documented in [docs/control-protocol.md](docs/control-pr
 | [AGENTS.md](AGENTS.md) | The rules every contributor must follow: assets, clean room, licences |
 | [docs/architecture.md](docs/architecture.md) | Layers, data model, time base, command system, render and export pipeline |
 | [docs/testing.md](docs/testing.md) | Unit, property and ffmpeg-oracle tests, accuracy criteria, benchmarks |
+| [docs/MCP.md](docs/MCP.md) | Named tools in `filmcraft-mcp` (this fork): arguments, transports, resources |
 | [docs/agents.md](docs/agents.md) | Driving FilmCraft over MCP and the control channel; how agents develop it |
-| [docs/control-protocol.md](docs/control-protocol.md) | Control-channel and MCP reference |
+| [docs/control-protocol.md](docs/control-protocol.md) | Control-channel and upstream MCP reference |
 | [docs/project-files.md](docs/project-files.md) | `.fcproj` format, schema migrations, auto-save and crash recovery |
 | [docs/graphics.md](docs/graphics.md) · [docs/captions.md](docs/captions.md) | Text engine, graphic clips and tools; caption tracks and formats |
 | [ROADMAP.md](ROADMAP.md) | Stage, parity numbers, languages, what's next and the progress log |
@@ -459,18 +588,17 @@ with its author, source and license in [ATTRIBUTION.md](ATTRIBUTION.md). Builds 
 
 FilmCraft is an independent implementation. It contains no Adobe code, icons, images, presets or LUTs, and no GPL or LGPL code; every icon is drawn in code and every asset is openly licensed and attributed ([AGENTS.md](AGENTS.md)), apart from the ArtCraft name and logos, which are trademarks of the ArtCraft Team used under [`docs/brand/LICENSE-brand.txt`](docs/brand/LICENSE-brand.txt). ffmpeg is used only as an external test oracle.
 
-The ArtCraft name, wordmark and logos in [`docs/brand/`](docs/brand/) are trademarks of the
-ArtCraft Team and are not covered by this license. They may be used only unmodified, and only as
-part of this repository and FilmCraft, under [`docs/brand/LICENSE-brand.txt`](docs/brand/LICENSE-brand.txt).
-Forks and modified versions must remove them.
+The ArtCraft name, wordmark and logos are trademarks of the ArtCraft Team and are not covered by
+this license. Upstream allows them only unmodified and only for official FilmCraft
+([`docs/brand/LICENSE-brand.txt`](docs/brand/LICENSE-brand.txt)). This fork removes the mark files
+([`docs/brand/REMOVED.md`](docs/brand/REMOVED.md)).
 
 <sub>Adobe, Photoshop, Illustrator, Premiere Pro, Lightroom, Acrobat, After Effects and InDesign are trademarks or registered trademarks of Adobe Inc. in the United States and/or other countries. FilmCraft is an independent, open-source project and is not affiliated with, sponsored by or endorsed by Adobe Inc.; these names are used only to describe the workflows it is compatible with.</sub>
 
 <br>
 
 <p align="center">
-  <a href="https://getartcraft.com/"><img alt="ArtCraft" src="docs/brand/artcraft-mark.svg" width="28"></a><br>
-  <sub>Made by the <a href="https://getartcraft.com/">ArtCraft</a> team and community.</sub>
+  <sub>Based on FilmCraft by the <a href="https://getartcraft.com/">ArtCraft</a> team and community.</sub>
 </p>
 
 ## Star history

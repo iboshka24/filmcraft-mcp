@@ -32,6 +32,11 @@ iconography, images or other Adobe assets; open licences only; every asset attri
 | `docs/images/filmcraft-scopes.png` | FilmCraft contributors | Original work: FilmCraft UI crop (scopes of a Charade (1963) frame, public domain) | MIT OR Apache-2.0 |
 | `docs/images/filmcraft-effects.png` | FilmCraft contributors | Original work: FilmCraft screenshot crop; NASA Earth Views (US Government work, public domain) | MIT OR Apache-2.0; footage public domain |
 | `docs/images/filmcraft-timeline.png` | FilmCraft contributors | Original work: FilmCraft UI crop; thumbnails from Night of the Living Dead (1968) and Carnival of Souls (1962), CC0 Chopin waveform | MIT OR Apache-2.0; film frames public domain |
+| `docs/demo/demo.gif` | FilmCraft contributors | Original work: animated GIF exported by filmcraft-mcp `export_media` from the Nightfall sequence (procedural demo scenes, Noto Serif titles) | MIT OR Apache-2.0 |
+| `docs/demo/open.png` | FilmCraft contributors | Original work: program frame at 1.8 s of Nightfall, rendered by filmcraft-mcp `capture_frame` | MIT OR Apache-2.0 |
+| `docs/demo/mid.png` | FilmCraft contributors | Original work: program frame at 5.1 s of Nightfall, rendered by filmcraft-mcp `capture_frame` | MIT OR Apache-2.0 |
+| `docs/demo/close.png` | FilmCraft contributors | Original work: program frame at 10.5 s of Nightfall, rendered by filmcraft-mcp `capture_frame` | MIT OR Apache-2.0 |
+| `docs/demo/demo.mp4` | FilmCraft contributors | Original work: 1920x1080 H.264/AAC export of Nightfall from filmcraft-mcp `export_media` (procedural demo scenes and bundled Noto Serif) | MIT OR Apache-2.0 |
 | `assets/app-icon/filmcraft.svg` | Brandon Thomas (FilmCraft owner) | Original work: FilmCraft app icon (owl with ear tufts), drawn by the owner in ArtCraft and vectorised; canonical vector | MIT OR Apache-2.0 (`assets/app-icon/LICENSE.txt`) |
 | `packaging/macos/dmg/background.svg` | @XusBadia | Original work: FilmCraft macOS DMG window background, derived from the FilmCraft app icon (`assets/app-icon/filmcraft.svg`); rendered to `background.tiff` by `packaging/macos/dmg/generate.py` | MIT OR Apache-2.0 (`LICENSE-MIT`, `LICENSE-APACHE`) |
 | `packaging/macos/dmg/background.tiff` | @XusBadia | Rendered from `packaging/macos/dmg/background.svg` by `packaging/macos/dmg/generate.py` | MIT OR Apache-2.0 (`LICENSE-MIT`, `LICENSE-APACHE`) |
@@ -133,21 +138,10 @@ carry each font's licence as `OFL-<family>.txt`.
 
 ## First-party brand marks
 
-The ArtCraft name, wordmark and logos are trademarks of the ArtCraft Team. They are not open source and
-are not covered by the project licence; they may be used only unmodified and only in the context of
-FilmCraft, under [`docs/brand/LICENSE-brand.txt`](docs/brand/LICENSE-brand.txt). Forks and modified versions must
-remove them (AGENTS.md §1.8).
-
-| File | Author | Source | Licence |
-|---|---|---|---|
-| `docs/brand/artcraft-logo-white.png` | ArtCraft Team | Original work: first-party ArtCraft brand mark (ArtCraft wordmark, light ink for dark backgrounds) | ArtCraft trademark, not open source; `docs/brand/LICENSE-brand.txt` (not MIT/Apache) |
-| `docs/brand/artcraft-logo-white.svg` | ArtCraft Team | Original work: first-party ArtCraft brand mark (ArtCraft wordmark, light ink for dark backgrounds) | ArtCraft trademark, not open source; `docs/brand/LICENSE-brand.txt` (not MIT/Apache) |
-| `docs/brand/artcraft-logo.png` | ArtCraft Team | Original work: first-party ArtCraft brand mark (ArtCraft wordmark (symbol + "ARTCRAFT"), dark ink for light backgrounds) | ArtCraft trademark, not open source; `docs/brand/LICENSE-brand.txt` (not MIT/Apache) |
-| `docs/brand/artcraft-logo.svg` | ArtCraft Team | Original work: first-party ArtCraft brand mark (ArtCraft wordmark (symbol + "ARTCRAFT"), dark ink for light backgrounds) | ArtCraft trademark, not open source; `docs/brand/LICENSE-brand.txt` (not MIT/Apache) |
-| `docs/brand/artcraft-mark-black.png` | ArtCraft Team | Original work: first-party ArtCraft brand mark (ArtCraft symbol ("A" mark), black) | ArtCraft trademark, not open source; `docs/brand/LICENSE-brand.txt` (not MIT/Apache) |
-| `docs/brand/artcraft-mark-black.svg` | ArtCraft Team | Original work: first-party ArtCraft brand mark (ArtCraft symbol ("A" mark), black) | ArtCraft trademark, not open source; `docs/brand/LICENSE-brand.txt` (not MIT/Apache) |
-| `docs/brand/artcraft-mark.png` | ArtCraft Team | Original work: first-party ArtCraft brand mark (ArtCraft symbol ("A" mark), blue) | ArtCraft trademark, not open source; `docs/brand/LICENSE-brand.txt` (not MIT/Apache) |
-| `docs/brand/artcraft-mark.svg` | ArtCraft Team | Original work: first-party ArtCraft brand mark (ArtCraft symbol ("A" mark), blue) | ArtCraft trademark, not open source; `docs/brand/LICENSE-brand.txt` (not MIT/Apache) |
+The ArtCraft name, wordmark and logos are trademarks of the ArtCraft Team. They are not open source.
+Upstream FilmCraft ships them under [`docs/brand/LICENSE-brand.txt`](docs/brand/LICENSE-brand.txt), which
+requires forks to remove the files. This fork does not contain the PNG or SVG marks. `docs/brand/REMOVED.md`
+records that. Plain-text credit to the ArtCraft team stays in `NOTICE`.
 
 ## Third-party source code
 

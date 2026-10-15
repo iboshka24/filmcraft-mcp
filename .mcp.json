@@ -1,5 +1,9 @@
 {
   "mcpServers": {
+    "filmcraft-mcp": {
+      "command": "target/debug/filmcraft-mcp",
+      "args": ["stdio"]
+    },
     "filmcraft": {
       "command": "target/release/filmcraft-cli",
       "args": ["mcp", "--bridge", "127.0.0.1:9876"]
